@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>file-download</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/layui/css/modules/layer/default/layer.css}">
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<!--    <script type="text/javascript" th:src="@{https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js}"></script>-->
+    <!--    引入layui-->
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/layui/lay/modules/layer.js}"></script>
+    <script type="text/javascript">
+        function confirming() {
+            var str=$("#search").val();
+            if (str =="" || str==null) {
+                alert("key words is empty");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<div th:fragment="nav">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/files">Brand</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <form  class="navbar-form navbar-left" action="/file/search" method="get" onsubmit="return confirming()">
+                    <div class="form-group">
+                        <input type="text" id="search" name="search" class="form-control" placeholder="Search for files...">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Files List</div>
+    <div class="panel-body">
+        <p th:if="${param.msg}==null">Click to download</p>
+        <p style="color :red" th:if="${param.msg}!=null" th:text="${param.msg}"></p>
+    </div>
+
+    <!-- List group -->
+    <ul name="filesList" class="list-group">
+        <li class="list-group-item" th:each="file :${files}" ><a  th:text="${file}" th:href="@{'/file/download/'+${file}}"/></a></li>
+    </ul>
+</div>
+</body>
+</html>

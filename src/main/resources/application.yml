@@ -1,0 +1,20 @@
+server:
+  port: 8888
+logging:
+  level:
+    com.test: info
+  file:
+    path: D:/root/logs #默认文件名为spring.log
+# 数据库
+spring:
+  datasource:
+    username: root
+    password: root1
+    url: jdbc:mysql://114.55.147.153:3306/aliyun_users?serverTimezone=GMT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    initialization-mode: always
+  thymeleaf: #取消模板缓存
+    cache: false
+
+
