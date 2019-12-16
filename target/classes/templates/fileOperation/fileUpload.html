@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ch" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>file-download</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap-theme.min.css}">
+    <script type="text/javascript" th:href="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" th:href="@{/js/jquery-1.11.2.min.js}"></script>
+    <script type="text/javascript" th:href="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript">
+        function checkIsEmpty() {
+            var fileInput =$('#file').value;
+            alert(fileInput);
+            alert("hello");
+            if (fileInput==null || fileInput==""){
+                alert("the file is empty!");
+                return false;
+            }else{
+                return true;
+            }
+        }
+    </script>
+</head>
+<body>
+<!--此处的片段位置相对于文件夹templates而言-->
+<div th:insert="~{fileOperation/fileDownload::nav}"></div>
+<form action="/file/upload" method="post" enctype="multipart/form-data" onsubmit="return checkIsEmpty()">
+    <div class="form-group">
+<!--        文件名-->
+        <label for="file">File input</label>
+        <input type="file" id="file" name="file">
+        <p class="help-block">Example block-level help text here.</p>
+    </div>
+    <button type="submit" name="submit" class="btn btn-default">Submit</button>
+</form>
+</body>
+</html>
