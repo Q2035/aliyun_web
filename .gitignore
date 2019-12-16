@@ -33,5 +33,7 @@ hs_err_pid*
 out
 gen
 
-!/src/main/resources/application.properties
-!/src/main/resources/application.yml
+/target
+
+**/*.yml
+**/*.properties
