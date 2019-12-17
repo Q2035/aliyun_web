@@ -1,5 +1,6 @@
 package com.test.aliyun_web.controller;
 
+import com.test.aliyun_web.config.LoginHandlerInterceptor;
 import com.test.aliyun_web.util.MatchingCharacters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,8 +45,13 @@ public class FileIndexController {
         return "fileOperation/fileDownload";
     }
 
-    @GetMapping("/upload")
+    @RequestMapping("/upload")
     public String fileUpload(){
         return "fileOperation/fileUpload";
+    }
+
+    @RequestMapping({"/","/index"})
+    public String index(){
+        return "index";
     }
 }

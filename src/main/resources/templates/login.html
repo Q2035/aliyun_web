@@ -9,19 +9,26 @@
     <link rel="stylesheet" th:href="@{/layui/css/modules/layer/default/layer.css}">
     <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery-1.11.2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/Jquery.md5.js}"></script>
     <!--    <script type="text/javascript" th:src="@{https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js}"></script>-->
     <!--    引入layui-->
     <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
     <script type="text/javascript" th:src="@{/layui/lay/modules/layer.js}"></script>
+    <script>
+        function checking() {
+            var password=$("input[name='password']")[0].value;
+            password =$.md5(password);
+            $("input[name='password']")[0].value =password;
+        }
+    </script>
     <style>
         body{
             background-image: url("/image/scenery.jpg");
-
         }
     </style>
 </head>
 <body>
-<form class="layui-form" action="/user/authentication" method="post">
+<form class="layui-form" th:action="@{/user/authentication}" method="post">
     <div class="layui-form-item" style="margin-top: 25px" >
         <label class="layui-form-label">账号:</label>
         <div class="layui-input-inline">
@@ -31,17 +38,14 @@
     <div class="layui-form-item" >
         <label class="layui-form-label">密码:</label>
         <div class="layui-input-inline">
-            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            <input type="password" name="password" id="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-form-mid layui-word-aux">
-            <span style="color:red">${msg}</span>
-            <%
-            request.getSession().removeAttribute("msg");
-            %>
+            <span style="color:red" th:text="${param.msg}"></span>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block" style="margin-top: 55px">
-                <button class="layui-btn" lay-submit lay-filter="formDemo" id="submit">立即提交</button>
+                <button class="layui-btn" lay-submit lay-filter="formDemo" id="submit" onclick="checking()">立即提交</button>
             </div>
         </div>
     </div>
@@ -51,11 +55,11 @@
     layui.use('form', function(){
         var form = layui.form;
 
-        //监听提交
-        form.on('submit(formDemo)', function(data){
-            layer.msg(JSON.stringify(data.field));
-            return false;
-        });
+        // //监听提交
+        // form.on('submit(formDemo)', function(data){
+        //     layer.msg(JSON.stringify(data.field));
+        //     return true;
+        // });
     });
 </script>
 </body>

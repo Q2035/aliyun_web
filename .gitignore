@@ -1,0 +1,18 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+!/src/main/resources/application.properties
+!/src/main/resources/application.yml
+/target/
+/out/
+target/classes/com/test/aliyun_web/config/LoginHandlerInterceptor.class
+target/classes/com/test/aliyun_web/service/impl/UserServiceImpl.class
+target/classes/static/js/Jquery.md5.js
+target/generated-sources/
+target/generated-test-sources/

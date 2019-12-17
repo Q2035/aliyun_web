@@ -39,7 +39,6 @@ public class FileController {
     /**
      * 文件下载
      * 用RESTful风格传入文件名
-     * 单个文件下载，可以考虑添加文件夹的下载 文件夹的话可以先压缩成rar格式(先不弄)
      * 解决了下载报错getOutputStream()已被占用的问题
      * @param fileToDownloadName:下载的文件
      * @return 下载页面
