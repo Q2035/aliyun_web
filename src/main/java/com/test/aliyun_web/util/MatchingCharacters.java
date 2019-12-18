@@ -14,17 +14,44 @@ public final class MatchingCharacters {
      * 3.取出第二个字，查找第二步的HashMap中是否存在这个key
      * 4.重复比较
      *
+     * 22
      * @param args
      */
+
     public static void main(String[] args) {
-//        insertIntoTrieTree(head);
-//        boolean jdk = searchStringOnTrieTree("jdk", head);
-//        System.out.println(jdk);
-        insertIntoTrieTree(new String[]{"dk","jre","j2ee"});
-        List<String> list = listAllStringsOnTrieTree("j");
+        insertIntoTrieTree(new String[]{"j2awp3","j24","j2awp4","j2awi","jkkk","w"});
+////        Long start =System.currentTimeMillis();
+        List<String> list = listAllStringsOnTrieTree("j2a");
         for (String s : list) {
             System.out.println(s);
         }
+//        Long end =System.currentTimeMillis();
+//        for (String s : list) {
+//            System.out.println(s);
+//        }
+//        System.out.println(end-start);
+//        Long start =System.currentTimeMillis();
+//        List<String> j = BF(new String[]{"dk", "jre", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee", "j2ee"}, "j");
+//        for (String s : j) {
+//            System.out.println(s);
+//        }
+//        Long end =System.currentTimeMillis();
+//        System.out.println(start-end);
+    }
+
+
+    /**
+     * 暴力匹配
+     */
+
+    public static List<String> BF(String[] strings,String pattern){
+        List<String> result =new ArrayList<>();
+        for (String string : strings) {
+            if (string.startsWith(pattern)){
+                result.add(string);
+            }
+        }
+        return result;
     }
 
     /**
@@ -66,19 +93,19 @@ public final class MatchingCharacters {
      */
     public static void depthIterateWithTrieTree(){
         HashMap<String, TrieNode> tempHashMap = head.getChildNodes();
-        Queue<TrieNode > queue =new ArrayDeque<>();
-        TrieNode trieNode =null;
+        Stack<TrieNode > stack =new Stack<>();
+        TrieNode trieNode;
         Set<String> keySet = tempHashMap.keySet();
         for (String s : keySet) {
             tempHashMap =head.getChildNodes();
-            queue.add(tempHashMap.get(s));
-            while (queue.size() >0){
-                trieNode =queue.poll();
+            stack.push(tempHashMap.get(s));
+            while (stack.size() >0){
+                trieNode =stack.pop();
                 System.out.print(trieNode.getValue()+" ");
                 tempHashMap =trieNode.getChildNodes();
                 Set<String> keySet1 = tempHashMap.keySet();
                 for (String s1 : keySet1) {
-                    queue.add(tempHashMap.get(s1));
+                    stack.push(tempHashMap.get(s1));
                 }
             }
         }
@@ -91,7 +118,7 @@ public final class MatchingCharacters {
      */
     public static boolean searchStringOnTrieTree(String str){
         HashMap<String, TrieNode> tempHashMap = head.getChildNodes();
-        String subString =null;
+        String subString;
         for (int i=0;i<str.length();i++){
             subString =str.substring(i,i+1);
             if (tempHashMap.get(subString)!=null){
@@ -112,17 +139,20 @@ public final class MatchingCharacters {
         List<String> result = new ArrayList<>();
         HashMap<String ,TrieNode> headHashMap =head.getChildNodes();
         HashMap<String ,TrieNode> tempHashMap =headHashMap;
-        HashMap<String ,TrieNode> fromHereToIterate =headHashMap;
+        HashMap<String ,TrieNode> fromHereToIterate;
 
-        TrieNode tempTrieNode ;
-        Queue<TrieNode > queue =new ArrayDeque<>();
+        TrieNode tempTrieNode = null;
+        Stack<TrieNode > stack =new Stack<>();
         String subString;
         for (int i=0;i<str.length(); i++){
             subString =str.substring(i,i+1);
             if (tempHashMap.get(subString) !=null){
-                tempHashMap =tempHashMap.get(subString).getChildNodes();
-            }else {
-                return Arrays.asList(str);
+                tempTrieNode = tempHashMap.get(subString);
+                tempHashMap =tempTrieNode.getChildNodes();
+                if (null!= tempTrieNode && tempTrieNode.getNames()){
+                    return Arrays.asList(str);
+
+                }
             }
         }
         if (tempHashMap !=null){
@@ -130,15 +160,23 @@ public final class MatchingCharacters {
             Set<String> keySet = tempHashMap.keySet();
             for (String key : keySet) {
                 subString ="";
+                Queue<String > tempString =new ArrayDeque<>();
                 tempHashMap =fromHereToIterate;
-                queue.add(tempHashMap.get(key));
-                while (queue.size() >0){
-                    tempTrieNode =queue.poll();
+                stack.push(tempHashMap.get(key));
+                while (stack.size() >0){
+                    tempTrieNode =stack.pop();
                     tempHashMap =tempTrieNode.getChildNodes();
                     subString +=tempTrieNode.getValue();
+                    if(tempHashMap.size() >1){
+                        tempString.add(subString);
+                    }
+                    if (tempTrieNode.getNames() && stack.size() !=0){
+                        result.add(str+subString);
+                        subString =tempString.poll();
+                    }
                     Set<String> keySet1 = tempHashMap.keySet();
                     for (String s1 : keySet1) {
-                        queue.add(tempHashMap.get(s1));
+                        stack.push(tempHashMap.get(s1));
                     }
                 }
                 result.add(str +subString);
